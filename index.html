@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recipe Generator</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Roboto', sans-serif;
-            background-color: #f4f4f9;
+            background-color: #f0f8ff;
             margin: 0;
             padding: 0;
             display: flex;
@@ -20,14 +20,17 @@
         .container {
             background-color: #fff;
             padding: 20px 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             width: 400px;
+            animation: fadeIn 1s;
         }
         h1 {
             text-align: center;
             margin-bottom: 20px;
-            font-weight: 500;
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: #ff6347;
         }
         label {
             display: block;
@@ -40,6 +43,10 @@
             margin-bottom: 20px;
             border: 1px solid #ccc;
             border-radius: 5px;
+            transition: border 0.3s ease;
+        }
+        input[type="text"]:focus {
+            border-color: #ff6347;
         }
         .slider-container {
             margin-bottom: 20px;
@@ -56,32 +63,96 @@
         }
         input[type="range"] {
             width: 100%;
+            appearance: none;
+            background: #ff6347;
+            height: 5px;
+            border-radius: 5px;
+            outline: none;
+            transition: background 0.3s ease;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            appearance: none;
+            width: 15px;
+            height: 15px;
+            background: #fff;
+            border: 2px solid #ff6347;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background 0.3s ease;
         }
         button {
             width: 100%;
             padding: 10px;
             border: none;
             border-radius: 5px;
-            background-color: #28a745;
+            background-color: #ff6347;
             color: white;
             font-size: 16px;
             cursor: pointer;
             font-weight: 500;
+            transition: background-color 0.3s ease;
         }
         button:disabled {
             background-color: grey;
             cursor: not-allowed;
         }
+        button:hover:not(:disabled) {
+            background-color: #e5533d;
+        }
         h2 {
             text-align: center;
             margin-top: 30px;
+            font-family: 'Playfair Display', serif;
         }
         pre {
-            background-color: #f4f4f9;
+            background-color: #f9f9f9;
             padding: 15px;
             border-radius: 8px;
             white-space: pre-wrap;
             word-wrap: break-word;
+            font-family: 'Roboto', sans-serif;
+        }
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .checkbox-container input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        .advanced-options {
+            margin-top: 20px;
+        }
+        .advanced-options-label {
+            cursor: pointer;
+            color: #ff6347;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+        }
+        .advanced-options-label::after {
+            content: "▼";
+            margin-left: 10px;
+            transition: transform 0.3s ease;
+        }
+        .advanced-options-content {
+            display: none;
+            margin-top: 10px;
+            animation: fadeIn 0.5s;
+        }
+        .advanced-options-content.show {
+            display: block;
+        }
+        .advanced-options-label.show::after {
+            transform: rotate(-180deg);
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
         }
     </style>
 </head>
@@ -91,6 +162,11 @@
         <form id="recipe-form">
             <label for="ingredients">Enter ingredients (comma separated):</label>
             <input type="text" id="ingredients" name="ingredients">
+
+            <div class="checkbox-container">
+                <input type="checkbox" id="avoid-ready-made" name="avoid-ready-made">
+                <label for="avoid-ready-made">Avoid ready-made items (e.g., tortilla, sauces)</label>
+            </div>
 
             <div class="slider-container">
                 <div class="slider-label">
@@ -114,6 +190,34 @@
                     <span class="slider-value" id="preptime-value">30</span>
                 </div>
                 <input type="range" id="preptime" name="preptime" min="10" max="120" value="30" oninput="updateValue('preptime')">
+            </div>
+
+            <div class="advanced-options">
+                <div class="advanced-options-label" onclick="toggleAdvancedOptions()">
+                    Advanced Options
+                </div>
+                <div class="advanced-options-content" id="advanced-options-content">
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="vegetarian" name="vegetarian">
+                        <label for="vegetarian">Vegetarian</label>
+                    </div>
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="vegan" name="vegan">
+                        <label for="vegan">Vegan</label>
+                    </div>
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="gluten-free" name="gluten-free">
+                        <label for="gluten-free">Gluten-Free</label>
+                    </div>
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="dairy-free" name="dairy-free">
+                        <label for="dairy-free">Dairy-Free</label>
+                    </div>
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="nut-free" name="nut-free">
+                        <label for="nut-free">Nut-Free</label>
+                    </div>
+                </div>
             </div>
 
             <button type="button" id="generate-button" onclick="generateRecipe()">Generate Recipe</button>
