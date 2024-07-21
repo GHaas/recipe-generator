@@ -2,6 +2,18 @@ function updateValue(id) {
     document.getElementById(`${id}-value`).textContent = document.getElementById(id).value;
 }
 
+function toggleAdvancedOptions() {
+    const content = document.getElementById('advanced-options-content');
+    const label = document.querySelector('.advanced-options-label');
+    if (content.classList.contains('show')) {
+        content.classList.remove('show');
+        label.classList.remove('show');
+    } else {
+        content.classList.add('show');
+        label.classList.add('show');
+    }
+}
+
 async function generateRecipe() {
     const generateButton = document.getElementById('generate-button');
     generateButton.disabled = true;
@@ -10,10 +22,23 @@ async function generateRecipe() {
     const healthiness = document.getElementById('healthiness').value;
     const difficulty = document.getElementById('difficulty').value;
     const preptime = document.getElementById('preptime').value;
+    const avoidReadyMade = document.getElementById('avoid-ready-made').checked;
+    const vegetarian = document.getElementById('vegetarian').checked;
+    const vegan = document.getElementById('vegan').checked;
+    const glutenFree = document.getElementById('gluten-free').checked;
+    const dairyFree = document.getElementById('dairy-free').checked;
+    const nutFree = document.getElementById('nut-free').checked;
 
-    const prompt = `Generate a recipe using the following ingredients: ${ingredients}. 
+    let prompt = `Generate a recipe using the following ingredients: ${ingredients}. 
     The recipe should have a healthiness rating of ${healthiness} out of 10, 
     a difficulty rating of ${difficulty} out of 10, and should take around ${preptime} minutes to prepare.`;
+
+    if (avoidReadyMade) prompt += " Avoid using ready-made items like tortilla or sauces.";
+    if (vegetarian) prompt += " The recipe should be vegetarian.";
+    if (vegan) prompt += " The recipe should be vegan.";
+    if (glutenFree) prompt += " The recipe should be gluten-free.";
+    if (dairyFree) prompt += " The recipe should be dairy-free.";
+    if (nutFree) prompt += " The recipe should be nut-free.";
 
     const apiKey = 'YOUR_OPENAI_API_KEY'; // Replace with your OpenAI API key
 
