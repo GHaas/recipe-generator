@@ -160,25 +160,20 @@
     <div class="container">
         <h1>recipe.ai</h1>
         <form id="recipe-form">
-            <label for="ingredients">Enter ingredients (comma separated):</label>
-            <input type="text" id="ingredients" name="ingredients">
-
-            <div class="checkbox-container">
-                <input type="checkbox" id="avoid-ready-made" name="avoid-ready-made">
-                <label for="avoid-ready-made">Avoid ready-made items (e.g., tortilla, sauces)</label>
-            </div>
+            <label for="ingredients">What ingredients do you already have?</label>
+            <input type="text" id="ingredients" name="ingredients" placeholder="Eggplant, Rice, ...">
 
             <div class="slider-container">
                 <div class="slider-label">
-                    <span>Healthiness:</span>
+                    <span>How healthy should it be?</span>
                     <span class="slider-value" id="healthiness-value">5</span>
                 </div>
-                <input type="range" id="healthiness" name="healthiness" min="1" max="10" value="5" oninput="updateValue('healthiness')">
+                <input type="range" id="healthiness" name="healthiness" min="1" max="10" value="8" oninput="updateValue('healthiness')">
             </div>
 
             <div class="slider-container">
                 <div class="slider-label">
-                    <span>Difficulty:</span>
+                    <span>Easy or Difficult?</span>
                     <span class="slider-value" id="difficulty-value">5</span>
                 </div>
                 <input type="range" id="difficulty" name="difficulty" min="1" max="10" value="5" oninput="updateValue('difficulty')">
@@ -186,21 +181,27 @@
 
             <div class="slider-container">
                 <div class="slider-label">
-                    <span>Preparation Time (minutes):</span>
+                    <span>How much time do you have?</span>
                     <span class="slider-value" id="preptime-value">30</span>
                 </div>
                 <input type="range" id="preptime" name="preptime" min="10" max="120" value="30" oninput="updateValue('preptime')">
             </div>
 
+            <div class="checkbox-container">
+                <input type="checkbox" id="vegetarian" name="vegetarian">
+                <label for="vegetarian">Vegetarian</label>
+            </div>
+
             <div class="advanced-options">
                 <div class="advanced-options-label" onclick="toggleAdvancedOptions()">
-                    Advanced Options
+                    More options
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="avoid-ready-made" name="avoid-ready-made">
+                    <label for="avoid-ready-made">Avoid ready-made items (e.g., tortilla, sauces)</label>
                 </div>
                 <div class="advanced-options-content" id="advanced-options-content">
-                    <div class="checkbox-container">
-                        <input type="checkbox" id="vegetarian" name="vegetarian">
-                        <label for="vegetarian">Vegetarian</label>
-                    </div>
+
                     <div class="checkbox-container">
                         <input type="checkbox" id="vegan" name="vegan">
                         <label for="vegan">Vegan</label>
