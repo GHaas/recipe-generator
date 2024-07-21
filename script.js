@@ -35,7 +35,7 @@ async function generateRecipe() {
     if (dairyFree) prompt += " The recipe should be dairy-free.";
     if (nutFree) prompt += " The recipe should be nut-free.";
 
-    const apiKey = 'YOUR_OPENAI_API_KEY'; // Replace with your OpenAI API key
+    const apiKey = 'sk-proj-GdOzBfViUgOAGAvKtbdQT3BlbkFJayjXlAVpg1ICHRkePGJr'; // Replace with your OpenAI API key when forking
 
     try {
         const response = await fetch('https://api.openai.com/v1/engines/davinci-codex/completions', {
