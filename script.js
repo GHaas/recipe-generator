@@ -1,3 +1,7 @@
+function updateValue(id) {
+    document.getElementById(`${id}-value`).textContent = document.getElementById(id).value;
+}
+
 async function generateRecipe() {
     const generateButton = document.getElementById('generate-button');
     generateButton.disabled = true;
