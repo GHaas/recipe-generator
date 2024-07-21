@@ -5,13 +5,8 @@ function updateValue(id) {
 function toggleAdvancedOptions() {
     const content = document.getElementById('advanced-options-content');
     const label = document.querySelector('.advanced-options-label');
-    if (content.classList.contains('show')) {
-        content.classList.remove('show');
-        label.classList.remove('show');
-    } else {
-        content.classList.add('show');
-        label.classList.add('show');
-    }
+    content.classList.toggle('show');
+    label.classList.toggle('show');
 }
 
 async function generateRecipe() {
