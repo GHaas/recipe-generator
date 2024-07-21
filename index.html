@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .slider-container {
+            margin-bottom: 20px;
+        }
+        .slider-label {
+            margin-right: 10px;
+        }
+        button:disabled {
+            background-color: grey;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <h1>Recipe Generator</h1>
+    <form id="recipe-form">
+        <label for="ingredients">Enter ingredients (comma separated):</label><br>
+        <input type="text" id="ingredients" name="ingredients"><br><br>
+
+        <div class="slider-container">
+            <span class="slider-label">Healthiness:</span>
+            <input type="range" id="healthiness" name="healthiness" min="1" max="10" value="5">
+        </div>
+
+        <div class="slider-container">
+            <span class="slider-label">Difficulty:</span>
+            <input type="range" id="difficulty" name="difficulty" min="1" max="10" value="5">
+        </div>
+
+        <div class="slider-container">
+            <span class="slider-label">Preparation Time:</span>
+            <input type="range" id="preptime" name="preptime" min="10" max="120" value="30">
+        </div>
+
+        <button type="button" id="generate-button" onclick="generateRecipe()">Generate Recipe</button>
+    </form>
+
+    <h2>Generated Recipe</h2>
+    <pre id="recipe-output"></pre>
+
+    <script src="script.js"></script>
+</body>
+</html>
